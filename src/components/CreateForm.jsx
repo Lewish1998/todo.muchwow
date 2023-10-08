@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import './CreateForm.css'
+import './style/CreateForm.css'
 
 const CreateForm = ({addTodo}) => {
 
     const [todo, setTodo] = useState('')
-    const [deadline, setDeadline] = useState(new Date())
+    const [deadline, setDeadline] = useState()
     const [warning, setWarning] = useState('')
 
     const handleSubmit = e => {
@@ -13,11 +13,18 @@ const CreateForm = ({addTodo}) => {
             setWarning('')
             addTodo(todo, deadline)
             setTodo('')
-        }
-        else {
+			setDeadline('')
+        } else {
             setWarning('Please populate field')
         }
     }
+
+	const setCurrentTime = () => {
+		// setDeadline(new Date())
+		const now = new Date();
+		const formattedDateTime = now.toISOString().slice(0, 16);
+		setDeadline(formattedDateTime);
+	}
 
   return (
 		<div className="create-form">
@@ -41,8 +48,8 @@ const CreateForm = ({addTodo}) => {
 						onChange={(e) => {
 							setDeadline(e.target.value);
 						}}
-						required
 					/>
+					<button type='button' onClick={setCurrentTime}>Set Current Time</button>
 				</div>
 				<button type="submit">Create</button>
 			</form>

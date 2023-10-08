@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./ToDo.css";
+import "./style/ToDo.css";
 
 const ToDo = ({ task, index, editTodo, isEditing, saveEdit, deleteTodo }) => {
 	const [editedTask, setEditedTask] = useState(task.title);
@@ -49,7 +49,7 @@ const ToDo = ({ task, index, editTodo, isEditing, saveEdit, deleteTodo }) => {
 			) : (
 				<>
 					<p>{task.title}</p>
-					<p>Deadline: {formatDate(new Date(task.deadline))}</p>
+					{task.deadline ? <p>Deadline: {formatDate(new Date(task.deadline))}</p> : ''}
 					<button onClick={() => editTodo(index)}>Edit</button>
 					<button onClick={handleDeleteClick}>Delete</button>
 				</>

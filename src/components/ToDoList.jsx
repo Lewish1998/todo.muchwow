@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import CreateForm from './CreateForm';
 import ToDo from './ToDo';
-import './ToDoList.css';
+import './style/ToDoList.css';
 
 const ToDoList = () => {
   const [todos, setTodos] = useState([]);
@@ -31,9 +31,10 @@ const ToDoList = () => {
 
   const deleteTodo = (index) => {
     const updatedTodos = [...todos];
-    updatedTodos.splice(index, 1); // Remove the task at the specified index
+    updatedTodos.splice(index, 1);
     setTodos(updatedTodos);
   };
+  if (todos.length > 0) {
   return (
     <div className='to-do-list'>
       <CreateForm addTodo={addTodo} />
@@ -51,7 +52,15 @@ const ToDoList = () => {
         />
       ))}
     </div>
-  );
+  )}
+  else {
+    return (
+    <div className='to-do-list'>
+      <CreateForm addTodo={addTodo} />
+      <h3>You have no todos...</h3>
+    </div>
+      )
+  }
 };
 
 export default ToDoList;
