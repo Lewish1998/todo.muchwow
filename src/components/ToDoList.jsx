@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import CreateForm from './CreateForm';
 import ToDo from './ToDo';
+import './ToDoList.css';
 
 const ToDoList = () => {
   const [todos, setTodos] = useState([]);
   const [editingIndex, setEditingIndex] = useState(-1);
 
-  const addTodo = (todo) => {
+  const addTodo = (todo, deadline) => {
     setTodos([
       ...todos,
       {
         title: todo,
+        deadline: deadline,
         completed: false,
       },
     ]);
@@ -32,14 +34,14 @@ const ToDoList = () => {
     updatedTodos.splice(index, 1); // Remove the task at the specified index
     setTodos(updatedTodos);
   };
-
   return (
-    <div>
+    <div className='to-do-list'>
       <CreateForm addTodo={addTodo} />
       <h3>Current Todos: </h3>
-      {todos.map((todo, index) => (
+      {todos.map((todo, index, deadline) => (
         <ToDo
           task={todo}
+          deadline={deadline}
           key={index}
           index={index}
           editTodo={editTodo}
