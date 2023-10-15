@@ -1,6 +1,7 @@
 import React from 'react'
 import ToDoList from '../components/ToDoList'
 import TaskContainer from './TaskContainer'
+import TaskTest from '../components/TaskTest'
 
 const MainContainer = () => {
   return (
@@ -9,6 +10,9 @@ const MainContainer = () => {
       <h4>For all your to-do-ing needs</h4>
       <TaskContainer />
       <ToDoList />
+
+
+      <TaskTest />
     </div>
   )
 }
