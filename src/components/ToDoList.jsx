@@ -2,67 +2,27 @@ import React, { useState } from 'react';
 import CreateForm from './CreateForm';
 import ToDo from './ToDo';
 import './style/ToDoList.css';
-import TaskTest from './TaskTest';
 
-const ToDoList = () => {
-  const [todos, setTodos] = useState([]);
-  const [editingIndex, setEditingIndex] = useState(-1);
-
-  const addTodo = (todo, deadline) => {
-    setTodos([
-      ...todos,
-      {
-        title: todo,
-        deadline: deadline,
-        completed: false,
-      },
-    ]);
-  };
-
-  const editTodo = (index) => {
-    setEditingIndex(index);
-  };
-
-  const saveEdit = (index, editedTitle) => {
-    const updatedTodos = [...todos];
-    updatedTodos[index].title = editedTitle;
-    setTodos(updatedTodos);
-    setEditingIndex(-1);
-  };
-
-  const deleteTodo = (index) => {
-    const updatedTodos = [...todos];
-    updatedTodos.splice(index, 1);
-    setTodos(updatedTodos);
-  };
-  
-  if (todos.length > 0) {
+const ToDoList = ({ tasks, addTask, editTask, deleteTask }) => {
   return (
     <div className='to-do-list'>
-      <CreateForm addTodo={addTodo} />
+      <CreateForm addTask={addTask} />
       <h3>Current Todos: </h3>
-      {todos.map((todo, index, deadline) => (
-        <ToDo
-          task={todo}
-          deadline={deadline}
-          key={index}
-          index={index}
-          editTodo={editTodo}
-          isEditing={index === editingIndex}
-          saveEdit={saveEdit}
-          deleteTodo={deleteTodo}
-        />
-      ))}
+      {tasks.length > 0 ? (
+        tasks.map((task, index) => (
+          <ToDo
+            task={task}
+            key={index}
+            index={index}
+            editTask={editTask}
+            deleteTask={() => deleteTask(index)}
+          />
+        ))
+      ) : (
+        <p>You have no todos...</p>
+      )}
     </div>
-  )}
-  else {
-    return (
-    <div className='to-do-list'>
-      <CreateForm addTodo={addTodo} />
-      <h3>You have no todos...</h3>
-    </div>
-      )
-  }
-};
+  );
+}
 
 export default ToDoList;
