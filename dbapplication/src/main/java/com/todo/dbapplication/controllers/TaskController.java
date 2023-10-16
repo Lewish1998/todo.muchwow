@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class TaskController {
 
@@ -35,6 +36,13 @@ public class TaskController {
     public ResponseEntity<Task> postTask(@RequestBody Task task) {
         taskRepository.save(task);
         return new ResponseEntity<>(task, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("value=/tasks/{id}")
+    public ResponseEntity deleteTask(@PathVariable Long id) {
+        Optional<Task> existingTask = taskRepository.findById(id);
+        taskRepository.deleteById(id);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
 }
