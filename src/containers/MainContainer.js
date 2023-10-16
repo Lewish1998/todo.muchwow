@@ -10,9 +10,6 @@ const MainContainer = () => {
       <h4>For all your to-do-ing needs</h4>
       <TaskContainer />
       <ToDoList />
-
-
-      <TaskTest />
     </div>
   )
 }
