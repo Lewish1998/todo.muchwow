@@ -2,6 +2,10 @@ package com.todo.dbapplication.models;
 
 import javax.persistence.*;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "tasks")
 public class Task {
@@ -16,11 +20,14 @@ public class Task {
 
     @Column(name="description")
     private String description;
-    // DATE
+    
+    @Column(name="deadline")
+    private LocalDateTime deadline;
 
-    public Task(String title, String description) {
+    public Task(String title, String description, LocalDateTime deadline) {
         this.title = title;
         this.description = description;
+        this.deadline = deadline;
     }
 
     public Task() {
@@ -50,4 +57,13 @@ public class Task {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public LocalDateTime getDeadline() {
+        return deadline;
+    }
+
+    public void setDeadline(LocalDateTime deadline) {
+        this.deadline = deadline;
+    }
+    
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -23,7 +24,8 @@ class DbapplicationTests {
 
 	@Test
 	public void createTask() {
-		Task todo1 = new Task("First Todo", "This is my first todo");
+		String deadline = "2023-10-28T14:33:00";
+		Task todo1 = new Task("First Todo", "This is my first todo", LocalDateTime.parse(deadline));
 		taskRepository.save(todo1);
 	}
 
