@@ -50,7 +50,7 @@ const ToDo = ({ task, index, editTask, isEditing, saveEdit, deleteTask }) => {
         </>
       ) : (
         <>
-          <p>Todo #: {index+1}</p>
+          <p>Task: {index+1}</p>
           <p>Title: {task.title}</p>
           {task.description ? (
             <p>Description: {task.description}</p>

@@ -1,23 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import './style/CreateForm.css'
 
 const CreateForm = ({addTask}) => {
 
-    // const [todo, setTodo] = useState('')
     const [warning, setWarning] = useState('')
-
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [deadline, setDeadline] = useState('')
-
-
-	const [task, setTask] = useState({ 
-		title: '', 
-		description: '', 
-		deadline: ''
-	})
-	
-
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -29,12 +18,10 @@ const CreateForm = ({addTask}) => {
 				description: description, 
 				deadline: deadline
 			})
-			setTask(newTask)
-			console.log(task)
-			console.log(newTask)
 
             addTask(newTask)
 			setTitle('')
+			setDescription('')
 			setDeadline('')
         } else {
             setWarning('Please populate field')
@@ -42,7 +29,6 @@ const CreateForm = ({addTask}) => {
     }
 
 	const setCurrentTime = () => {
-		// setDeadline(new Date())
 		const now = new Date();
 		const formattedDateTime = now.toISOString().slice(0, 16);
 		setDeadline(formattedDateTime);

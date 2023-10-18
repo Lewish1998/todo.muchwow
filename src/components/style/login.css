@@ -1,0 +1,7 @@
+.moving-button {
+    position: absolute;
+    bottom: 60px;
+    background-color: aquamarine;
+    color: black;
+    font-weight: 500;
+}

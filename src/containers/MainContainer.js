@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import ToDoList from '../components/ToDoList'
+import Title from '../components/Title';
+import Login from '../components/Login';
 
 const MainContainer = () => {
   const url = "http://localhost:8080/api/tasks";
@@ -78,8 +80,8 @@ const MainContainer = () => {
 
   return (
     <div>
-      <h1>React ToDo App</h1>
-      <h4>For all your to-do-ing needs</h4>
+      <Title />
+      <Login />
       <ToDoList 
         tasks={tasks}
         addTask={addTask}
