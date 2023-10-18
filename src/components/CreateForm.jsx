@@ -1,17 +1,20 @@
-import React, { useState } from 'react'
-import './style/CreateForm.css'
+import React, { useEffect, useState } from 'react';
+import { Alert, AlertTitle, Collapse, Grid, TextField } from '@mui/material';
+import './style/CreateForm.css';
 
 const CreateForm = ({addTask}) => {
+;
+	const [errorMsg, setErrorMsg] = useState('');
+	const [successMsg, setSuccessMsg] = useState('');
 
-    const [warning, setWarning] = useState('')
-    const [title, setTitle] = useState('')
-    const [description, setDescription] = useState('')
-    const [deadline, setDeadline] = useState('')
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
+    const [deadline, setDeadline] = useState('');
 
     const handleSubmit = e => {
         e.preventDefault();
         if (title.length !== 0) {
-            setWarning('')
+            setErrorMsg('')
 
 			const newTask = ({ 
 				title: title, 
@@ -20,11 +23,13 @@ const CreateForm = ({addTask}) => {
 			})
 
             addTask(newTask)
+			setSuccessMsg("Task created!")
+
 			setTitle('')
 			setDescription('')
 			setDeadline('')
         } else {
-            setWarning('Please populate field')
+			setErrorMsg('Please input a title!')
         }
     }
 
@@ -34,13 +39,50 @@ const CreateForm = ({addTask}) => {
 		setDeadline(formattedDateTime);
 	}
 
+	useEffect(() => {
+		if (successMsg.length > 0 || errorMsg.length > 0) {
+		  const timer = setTimeout(function () {
+			setSuccessMsg('');
+			setErrorMsg('');
+		  }, 2000);
+	
+		  return () => {
+			clearTimeout(timer);
+		  };
+		}
+	  }, [successMsg, errorMsg]);
+
   return (
 		<div className="create-form">
+
+            <Grid item xs={12} align='center'>
+                <Collapse in={errorMsg != "" || successMsg != ""}>
+                    {successMsg != "" ? (
+                        <Alert sx={{ display: 'flex', justifyContent: 'center' }}
+                            severity="success" 
+							onClose={() => {
+							  setSuccessMsg("")
+							}}
+                        >
+                            <AlertTitle>{successMsg}</AlertTitle>
+                        </Alert>
+                    ) : (
+                        <Alert sx={{ display: 'flex', justifyContent: 'center' }}
+                            severity="error" 
+							onClose={() => {
+							  setErrorMsg("")
+							}}
+                        >
+                            <AlertTitle>{errorMsg}</AlertTitle>
+						</Alert>
+                        )}
+                </Collapse>
+            </Grid>
+
 			<form onSubmit={handleSubmit}>
-				<h4>{warning}</h4>
 				<div>
-					<span>Title: </span>
-					<input
+					<p>Title: </p>
+					<TextField
 						type="text"
 						value={title}
 						onChange={(e) => {
@@ -52,7 +94,7 @@ const CreateForm = ({addTask}) => {
 				<div>
 					<span>Description: </span>
 				</div>
-				<input
+				<TextField
 						type="text"
 						value={description}
 						onChange={(e) => {
@@ -61,7 +103,7 @@ const CreateForm = ({addTask}) => {
 					/>
 				<div>
 					<span>Deadline: </span>
-					<input
+					<TextField
 						type="datetime-local"
 						value={deadline}
 						onChange={(e) => {
