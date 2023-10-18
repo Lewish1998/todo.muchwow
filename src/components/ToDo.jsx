@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./style/ToDo.css";
 
-const ToDo = ({ task, index, editTodo, isEditing, saveEdit, deleteTask }) => {
+const ToDo = ({ task, index, editTask, isEditing, saveEdit, deleteTask }) => {
   const [editedTask, setEditedTask] = useState(task.title);
   const [editedDeadline, setEditedDeadline] = useState(task.deadline);
 
@@ -18,8 +18,6 @@ const ToDo = ({ task, index, editTodo, isEditing, saveEdit, deleteTask }) => {
   };
 
   const handleDeleteClick = (e) => {
-	  console.log({"Task id: ": task.taskId})
-	  console.log({"id: ": task.id})
     deleteTask(task.id);
   };
 
@@ -52,15 +50,20 @@ const ToDo = ({ task, index, editTodo, isEditing, saveEdit, deleteTask }) => {
         </>
       ) : (
         <>
-          <p>{task.title}</p>
-          <p>{task.id}</p>
-          <p>{task.taskId}</p>
+          <p>Todo #: {index+1}</p>
+          <p>Title: {task.title}</p>
+          {task.description ? (
+            <p>Description: {task.description}</p>
+          ) : (
+            ""
+          )}
+
           {task.deadline ? (
             <p>Deadline: {formatDate(new Date(task.deadline))}</p>
           ) : (
             ""
           )}
-          <button onClick={editTodo}>Edit</button>
+          <button onClick={editTask}>Edit</button>
           <button onClick={handleDeleteClick}>Delete</button>
         </>
       )}

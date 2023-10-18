@@ -1,18 +1,40 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './style/CreateForm.css'
 
-const CreateForm = ({addTodo}) => {
+const CreateForm = ({addTask}) => {
 
-    const [todo, setTodo] = useState('')
-    const [deadline, setDeadline] = useState()
+    // const [todo, setTodo] = useState('')
     const [warning, setWarning] = useState('')
+
+    const [title, setTitle] = useState('')
+    const [description, setDescription] = useState('')
+    const [deadline, setDeadline] = useState('')
+
+
+	const [task, setTask] = useState({ 
+		title: '', 
+		description: '', 
+		deadline: ''
+	})
+	
+
 
     const handleSubmit = e => {
         e.preventDefault();
-        if (todo.length !== 0) {
+        if (title.length !== 0) {
             setWarning('')
-            addTodo(todo, deadline)
-            setTodo('')
+
+			const newTask = ({ 
+				title: title, 
+				description: description, 
+				deadline: deadline
+			})
+			setTask(newTask)
+			console.log(task)
+			console.log(newTask)
+
+            addTask(newTask)
+			setTitle('')
 			setDeadline('')
         } else {
             setWarning('Please populate field')
@@ -31,17 +53,28 @@ const CreateForm = ({addTodo}) => {
 			<form onSubmit={handleSubmit}>
 				<h4>{warning}</h4>
 				<div>
-					<label>Title: </label>
+					<span>Title: </span>
 					<input
 						type="text"
-						value={todo}
+						value={title}
 						onChange={(e) => {
-							setTodo(e.target.value);
+							setTitle(e.target.value)
 						}}
 					/>
 				</div>
+
 				<div>
-					<label>Deadline: </label>
+					<span>Description: </span>
+				</div>
+				<input
+						type="text"
+						value={description}
+						onChange={(e) => {
+							setDescription(e.target.value);
+						}}
+					/>
+				<div>
+					<span>Deadline: </span>
 					<input
 						type="datetime-local"
 						value={deadline}
