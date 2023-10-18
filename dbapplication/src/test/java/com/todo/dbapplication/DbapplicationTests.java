@@ -25,7 +25,7 @@ class DbapplicationTests {
 	@Test
 	public void createTask() {
 		String deadline = "2023-10-28T14:33:00";
-		Task todo1 = new Task("First Todo", "This is my first todo", LocalDateTime.parse(deadline));
+		Task todo1 = new Task(1L, "First Todo", "This is my first todo", LocalDateTime.parse(deadline));
 		taskRepository.save(todo1);
 	}
 

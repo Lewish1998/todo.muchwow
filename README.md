@@ -14,3 +14,4 @@ In the dbapplication folder there are docker files in case you want to run the b
 Ensure you are in the dbapplication folder, and type "docker build . -t database:v1" in your terminal. (-t specifies name and tag for the image).
 Then type "docker-compose up" in the terminal.
 The containerised backed will now be running on port 8081 probably hopefully.
+

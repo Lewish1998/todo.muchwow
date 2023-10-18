@@ -63,7 +63,9 @@ const MainContainer = () => {
   const deleteTask = async (taskId) => {
     try {
       const response = await fetch(url + `/${taskId}`, {
+        mode: 'cors',
         method: 'DELETE',
+        headers: {'Content-Type': 'application/json'}
       });
       if (!response.ok) {
         throw new Error('Network response was not ok');

@@ -15,7 +15,7 @@ const ToDoList = ({ tasks, addTask, editTask, deleteTask }) => {
             key={index}
             index={index}
             editTask={editTask}
-            deleteTask={() => deleteTask(index)}
+            deleteTask={() => deleteTask(task.id)}
           />
         ))
       ) : (

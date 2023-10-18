@@ -17,9 +17,10 @@ const ToDo = ({ task, index, editTodo, isEditing, saveEdit, deleteTask }) => {
     saveEdit(index, editedTask);
   };
 
-  const handleDeleteClick = () => {
-	console.log(index)
-    deleteTask(index);
+  const handleDeleteClick = (e) => {
+	  console.log({"Task id: ": task.taskId})
+	  console.log({"id: ": task.id})
+    deleteTask(task.id);
   };
 
   function formatDate(date) {
@@ -52,6 +53,8 @@ const ToDo = ({ task, index, editTodo, isEditing, saveEdit, deleteTask }) => {
       ) : (
         <>
           <p>{task.title}</p>
+          <p>{task.id}</p>
+          <p>{task.taskId}</p>
           {task.deadline ? (
             <p>Deadline: {formatDate(new Date(task.deadline))}</p>
           ) : (

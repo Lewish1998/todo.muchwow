@@ -23,14 +23,9 @@ public class TaskController {
     }
 
     @GetMapping(value="/tasks/{id}")
-    public ResponseEntity getTask(@PathVariable Long id) {
+    public ResponseEntity<Optional<Task>> getTask(@PathVariable Long id) {
         return new ResponseEntity<>(taskRepository.findById(id), HttpStatus.OK);
     }
-
-//    @GetMapping(value="/tasks/{id}")
-//    public ResponseEntity<List<Task>> findTaskByTitle(@RequestParam(name="title") String title) {
-//        return new ResponseEntity<>(taskRepository.findTaskByTitle(title), HttpStatus.OK);
-//    }
 
     @PostMapping(value="/tasks")
     public ResponseEntity<Task> postTask(@RequestBody Task task) {
@@ -38,11 +33,16 @@ public class TaskController {
         return new ResponseEntity<>(task, HttpStatus.CREATED);
     }
 
-    @DeleteMapping("value=/tasks/{id}")
-    public ResponseEntity deleteTask(@PathVariable Long id) {
-        Optional<Task> existingTask = taskRepository.findById(id);
+    @PatchMapping(value="/tasks/{id}")
+    public ResponseEntity<Task> updateTask(@RequestBody Task task) {
+        taskRepository.save(task);
+        return new ResponseEntity<Task>(task, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/tasks/{id}")
+    public ResponseEntity<Task> deleteTask(@PathVariable Long id) {
         taskRepository.deleteById(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
     }
 
 }

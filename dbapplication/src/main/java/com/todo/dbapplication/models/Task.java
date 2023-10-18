@@ -12,8 +12,8 @@ public class Task {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+    @Column(name = "task_id")
+    private Long taskId;
 
     @Column(name="title")
     private String title;
@@ -24,7 +24,8 @@ public class Task {
     @Column(name="deadline")
     private LocalDateTime deadline;
 
-    public Task(String title, String description, LocalDateTime deadline) {
+    public Task(Long taskId,String title, String description, LocalDateTime deadline) {
+        this.taskId = taskId;
         this.title = title;
         this.description = description;
         this.deadline = deadline;
@@ -35,11 +36,11 @@ public class Task {
     }
 
     public Long getId() {
-        return id;
+        return taskId;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.taskId = id;
     }
 
     public String getTitle() {
