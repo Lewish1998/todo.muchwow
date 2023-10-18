@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./style/ToDo.css";
+import { Button, ButtonGroup } from "@mui/material";
 
 const ToDo = ({ task, index, editTask, isEditing, saveEdit, deleteTask }) => {
   const [editedTask, setEditedTask] = useState(task.title);
@@ -63,8 +64,10 @@ const ToDo = ({ task, index, editTask, isEditing, saveEdit, deleteTask }) => {
           ) : (
             ""
           )}
-          <button onClick={editTask}>Edit</button>
-          <button onClick={handleDeleteClick}>Delete</button>
+          <ButtonGroup>
+            {/* <Button onClick={editTask}>Edit</Button> */}
+            <Button onClick={handleDeleteClick}>Delete</Button>
+          </ButtonGroup>
         </>
       )}
     </div>

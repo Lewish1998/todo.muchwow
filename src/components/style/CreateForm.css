@@ -1,3 +1,30 @@
-.create-form{
-        padding-top: 10px;
+.create-form {
+        display: flex;
+        justify-content: center;
+      }
+      
+.create-form div {
+        display: inline-block;
+        margin: 5px;
+}
+      
+/* .grid-container{
+        position: absolute;
+        left: 100px;
+        Not sure how to style this..
+} */
+
+.button-container button {
+        /* display: flex; */
+        top: 25px;
+        /* margin: 10px; */
+
+}
+
+#set-time {
+        height: 40px;
+}
+
+#submit {
+        height: 40px;
 }

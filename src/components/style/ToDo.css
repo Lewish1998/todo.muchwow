@@ -1,10 +1,10 @@
 .to-do{
-        margin: 0 auto;
+        margin: 3px auto;
         width: 80vw;
         border: 3px solid rgba(36, 35, 39, 0.2);
         display: block;
         border-radius: 10px;
-        padding: 10px;
+        padding-bottom: 10px;
 }
 p{
         margin: 10px;

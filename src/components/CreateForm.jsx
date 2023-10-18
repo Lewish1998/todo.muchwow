@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Alert, AlertTitle, Collapse, Grid, TextField } from '@mui/material';
+import { Alert, AlertTitle, Button, ButtonGroup, Collapse, Grid, TextField } from '@mui/material';
 import './style/CreateForm.css';
+import { DateTimePicker } from '@mui/x-date-pickers';
+
+
 
 const CreateForm = ({addTask}) => {
 ;
@@ -55,7 +58,7 @@ const CreateForm = ({addTask}) => {
   return (
 		<div className="create-form">
 
-            <Grid item xs={12} align='center'>
+            <Grid className='grid-container' item xs={12}>
                 <Collapse in={errorMsg != "" || successMsg != ""}>
                     {successMsg != "" ? (
                         <Alert sx={{ display: 'flex', justifyContent: 'center' }}
@@ -81,8 +84,9 @@ const CreateForm = ({addTask}) => {
 
 			<form onSubmit={handleSubmit}>
 				<div>
-					<p>Title: </p>
+					{/* <p>Title: </p> */}
 					<TextField
+						label="Title"
 						type="text"
 						value={title}
 						onChange={(e) => {
@@ -92,27 +96,36 @@ const CreateForm = ({addTask}) => {
 				</div>
 
 				<div>
-					<span>Description: </span>
-				</div>
+					{/* <p>Description: </p> */}
 				<TextField
+						label="Deadline"
 						type="text"
 						value={description}
 						onChange={(e) => {
 							setDescription(e.target.value);
 						}}
 					/>
-				<div>
-					<span>Deadline: </span>
-					<TextField
-						type="datetime-local"
-						value={deadline}
-						onChange={(e) => {
-							setDeadline(e.target.value);
-						}}
-					/>
-					<button type='button' onClick={setCurrentTime}>Set Current Time</button>
 				</div>
-				<button type="submit">Create</button>
+
+				<div>
+					<p>Deadline: </p>
+						<input
+							type="datetime-local"
+							value={deadline}
+							onChange={(e) => {
+								setDeadline(e.target.value);
+							}}
+						/>
+					</div>
+
+
+					
+					<div className='button-container'>
+						<ButtonGroup>
+						<Button id='set-time' type='button' variant='contained' onClick={setCurrentTime}>Set Current Time</Button>
+						<Button id='submit' type="submit" variant='contained'>Create</Button>
+						</ButtonGroup>
+					</div>
 			</form>
 		</div>
 	);
