@@ -1,18 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { Alert, AlertTitle, Button, ButtonGroup, Collapse, Grid, TextField } from '@mui/material';
 import './style/CreateForm.css';
-import { DateTimePicker } from '@mui/x-date-pickers';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { renderTimeViewClock } from '@mui/x-date-pickers/timeViewRenderers';
 
 
 
 const CreateForm = ({addTask}) => {
-;
+
 	const [errorMsg, setErrorMsg] = useState('');
 	const [successMsg, setSuccessMsg] = useState('');
 
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    const [deadline, setDeadline] = useState('');
+    const [deadline, setDeadline] = useState();
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -27,6 +31,8 @@ const CreateForm = ({addTask}) => {
 
             addTask(newTask)
 			setSuccessMsg("Task created!")
+
+			console.log(deadline)
 
 			setTitle('')
 			setDescription('')
@@ -59,8 +65,8 @@ const CreateForm = ({addTask}) => {
 		<div className="create-form">
 
             <Grid className='grid-container' item xs={12}>
-                <Collapse in={errorMsg != "" || successMsg != ""}>
-                    {successMsg != "" ? (
+                <Collapse in={errorMsg !== "" || successMsg !== ""}>
+                    {successMsg !== "" ? (
                         <Alert sx={{ display: 'flex', justifyContent: 'center' }}
                             severity="success" 
 							onClose={() => {
@@ -84,7 +90,6 @@ const CreateForm = ({addTask}) => {
 
 			<form onSubmit={handleSubmit}>
 				<div>
-					{/* <p>Title: </p> */}
 					<TextField
 						label="Title"
 						type="text"
@@ -96,7 +101,6 @@ const CreateForm = ({addTask}) => {
 				</div>
 
 				<div>
-					{/* <p>Description: </p> */}
 				<TextField
 						label="Deadline"
 						type="text"
@@ -108,17 +112,20 @@ const CreateForm = ({addTask}) => {
 				</div>
 
 				<div>
-					<p>Deadline: </p>
-						<input
+					<LocalizationProvider dateAdapter={AdapterDayjs}>
+						<DateTimePicker
+							label="Deadline"
+							ampm={false}
+							viewRenderers={{
+								hours: renderTimeViewClock,
+								minutes: renderTimeViewClock,
+								seconds: renderTimeViewClock,
+							  }}
 							type="datetime-local"
-							value={deadline}
-							onChange={(e) => {
-								setDeadline(e.target.value);
-							}}
+							onChange={(value) => setDeadline(value)}
 						/>
+					</LocalizationProvider>
 					</div>
-
-
 					
 					<div className='button-container'>
 						<ButtonGroup>
