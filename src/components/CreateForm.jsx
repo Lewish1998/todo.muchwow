@@ -13,6 +13,7 @@ const CreateForm = ({addTask}) => {
 
 	const [errorMsg, setErrorMsg] = useState('');
 	const [successMsg, setSuccessMsg] = useState('');
+	const [maxCharError, setMaxCharError] = useState('')
 
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
@@ -37,7 +38,13 @@ const CreateForm = ({addTask}) => {
 			setTitle('')
 			setDescription('')
 			setDeadline('')
-        } else {
+        } 
+		else if (title.length > 30) {
+			setMaxCharError("Max 30 characters")
+		}
+		else if (description.length > 50) {
+		setMaxCharError("Max 50 characters")
+		} else {
 			setErrorMsg('Please input a title!')
         }
     }
@@ -49,10 +56,11 @@ const CreateForm = ({addTask}) => {
 	}
 
 	useEffect(() => {
-		if (successMsg.length > 0 || errorMsg.length > 0) {
+		if (successMsg.length > 0 || errorMsg.length > 0 || setMaxCharError.length > 0) {
 		  const timer = setTimeout(function () {
 			setSuccessMsg('');
 			setErrorMsg('');
+			setMaxCharError('');
 		  }, 2000);
 	
 		  return () => {
@@ -60,6 +68,17 @@ const CreateForm = ({addTask}) => {
 		  };
 		}
 	  }, [successMsg, errorMsg]);
+
+	useEffect(() => {
+	  if (description.length > 50) {
+		setMaxCharError("Max 50 characters")
+	  } 
+	  else if (title.length > 30) {
+		setMaxCharError("Max 30 characters")
+	  } else {
+		setMaxCharError("")
+	  }
+	}, [title, description])
 
   return (
 		<div className="create-form">
@@ -88,8 +107,21 @@ const CreateForm = ({addTask}) => {
                 </Collapse>
             </Grid>
 
+			<Grid className='grid-container-2' item xs={12}>
+                <Collapse in={maxCharError !== ""}>
+                        <Alert sx={{ display: 'flex', justifyContent: 'center' }}
+                            severity="error" 
+							onClose={() => {
+							  setMaxCharError("")
+							}}
+                        >
+                            <AlertTitle>{maxCharError}</AlertTitle>
+						</Alert>
+                </Collapse>
+            </Grid>
+
 			<form onSubmit={handleSubmit}>
-				<div>
+				<div className='inputs'>
 					<TextField
 						label="Title"
 						type="text"
@@ -100,9 +132,9 @@ const CreateForm = ({addTask}) => {
 					/>
 				</div>
 
-				<div>
+				<div className='inputs'>
 				<TextField
-						label="Deadline"
+						label="Description"
 						type="text"
 						value={description}
 						onChange={(e) => {
@@ -111,7 +143,7 @@ const CreateForm = ({addTask}) => {
 					/>
 				</div>
 
-				<div>
+				<div className='inputs'>
 					<LocalizationProvider dateAdapter={AdapterDayjs}>
 						<DateTimePicker
 							label="Deadline"
