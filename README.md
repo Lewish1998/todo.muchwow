@@ -15,4 +15,4 @@ Ensure you are in the dbapplication folder, and type "docker build . -t database
 Then type "docker-compose up" in the terminal.
 The containerised backed will now be running on port 8081 probably hopefully.
 
-testing actions
+Looked at AWS cloud services (EC2, Elastic Beanstalk, RDS) and then it said $17 a month. No thank you. Maybe another day
