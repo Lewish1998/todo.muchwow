@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import ToDoList from '../components/ToDoList'
 import Title from '../components/Title';
 import Login from '../components/Login';
+import CreateForm from '../components/CreateForm';
 
 const MainContainer = () => {
   const url = "http://localhost:8080/api/tasks";
@@ -82,6 +83,7 @@ const MainContainer = () => {
     <div>
       <Title />
       {/* <Login /> */}
+      <CreateForm addTask={addTask} />
       <ToDoList 
         tasks={tasks}
         addTask={addTask}

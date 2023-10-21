@@ -5,9 +5,9 @@ import './style/ToDoList.css';
 
 const ToDoList = ({ tasks, addTask, editTask, deleteTask }) => {
   return (
-    <div className='to-do-list'>
-      <CreateForm addTask={addTask} />
+    <div>
       <h3>Current Todos: </h3>
+      <div className='to-do-list'>
       {tasks.length > 0 ? (
         tasks.map((task, index) => (
           <ToDo
@@ -21,6 +21,7 @@ const ToDoList = ({ tasks, addTask, editTask, deleteTask }) => {
       ) : (
         <p>You have no todos...</p>
       )}
+    </div>
     </div>
   );
 }
